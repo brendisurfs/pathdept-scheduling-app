@@ -41,15 +41,15 @@ func scheduleWorker(w *workers.Worker) {
 	// loop through each day in the calendar, assign worker day 0-4, UNLESS they have off.
 	// 1. place the worker on their starting slot.
 	// 2. check their days off, is it a day that is being scheduled? Dont put them on that day.
-	for range Weekdays {
+	for i := range Weekdays {
 		if w.IsOff() {
 			w.WorkDays = append(w.WorkDays, nil)
 		}
+		w.WorkDays = append(w.WorkDays, i)
 	}
-	w.WorkDays = append(w.WorkDays, *w)
+	DaySchedule.Day = append(DaySchedule.Day, *w)
 	//
 	// append the worker to the appropriate workdays.
-	DaySchedule.Day = append(DaySchedule.Day, *w)
 	// Finally, increment worker values (CurrentSlot, nextSlot)
 	w.IncrementWorkerDay()
 
