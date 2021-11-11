@@ -39,14 +39,5 @@ func main() {
 	scheduler.AddToCalendar(&j)
 	scheduler.AddToCalendar(&k)
 
-	fmt.Println("work days for dm: ", dm.WorkDays)
-	fmt.Println("work days for j: ", j.WorkDays)
-	fmt.Println("work days for k: ", k.WorkDays)
-
-	fmt.Println("current slot k: ", k.CurrentSlot)
-	fmt.Println("Next slot k: ", k.GetNextSlot())
-
-	for i, v := range scheduler.WorkCalendar {
-		fmt.Printf("day %d : %v\n", i, v)
-	}
+	fmt.Println(scheduler.DaySchedule.Day)
 }
