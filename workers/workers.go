@@ -1,5 +1,14 @@
 package workers
 
+// enum of slots to make it readable.
+const (
+	Slot1 = iota
+	Slot2
+	Slot3
+	Slot4
+	Slot5
+)
+
 var Calendar = []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}
 
 type Scheduler interface {
@@ -34,15 +43,15 @@ func (w *Worker) IsOff() bool {
 
 // IncrementWorkerDay - shifts the workers schedule day by 1, or back to 0 if greater than
 func (w *Worker) IncrementWorkerDay() {
-	if w.CurrentSlot+1 == 5 {
-		w.CurrentSlot = 0
+	if w.CurrentSlot+1 >= 5 {
+		w.CurrentSlot = Slot1
 	} else {
-		w.CurrentSlot += 1
+		w.CurrentSlot++
 	}
 }
 
 // GetNextSlot - determine what the next slot will be || Off day.
-func (w *Worker) GetNextSlot() *NextSlotValue {
-
-	return &NextSlotValue{}
+func (w *Worker) GetNextSlot() int {
+	ns := w.CurrentSlot + 1
+	return ns
 }
