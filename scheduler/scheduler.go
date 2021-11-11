@@ -8,8 +8,6 @@
 package scheduler
 
 import (
-	"fmt"
-
 	"github.com/brendisurfs/scheduler-app/workers"
 )
 
@@ -39,13 +37,13 @@ var DaySchedule Daily
 // ScheduleWorker - places the worker on a slot, increments their placement by 1.
 func scheduleWorker(w *workers.Worker) {
 	// loop through each day in the calendar, assign worker day 0-4, UNLESS they have off.
-	// 1. place the worker on their starting slot.
 	// 2. check their days off, is it a day that is being scheduled? Dont put them on that day.
-	for i := range Weekdays {
+	// NOTE: i am just ranging through the days that can work, but only 0-4. FIXXXXX MEEE
+	for _, v := range Weekdays {
 		if w.IsOff() {
 			w.WorkDays = append(w.WorkDays, nil)
 		}
-		w.WorkDays = append(w.WorkDays, i)
+		w.WorkDays = append(w.WorkDays, v)
 	}
 	DaySchedule.Day = append(DaySchedule.Day, *w)
 	//
@@ -56,12 +54,19 @@ func scheduleWorker(w *workers.Worker) {
 }
 
 // AddToSchedule - adds each person to the global schedule.
-func AddToCalendar(w *workers.Worker) {
+func AddToCalendar(workers *[]workers.Worker) {
 
-	// ws := make(map[int]Daily)
+	WorkCalendar = make(map[int]Daily)
 
-	scheduleWorker(w)
+	// for each week
+
+	// for each worker, schedule them and add them to the calendar.
+	for _, w := range *workers {
+		scheduleWorker(&w)
+	}
+	// ... and add a daily schedule to each day
+
+	// WorkCalendar[i] = DaySchedule
 
 	// let the user know the scheduling is done
-	fmt.Println("Scheduling is done for: ", w.Name)
 }

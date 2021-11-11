@@ -35,9 +35,9 @@ func main() {
 		DaysOff:      []int{6, 7, 8, 11, 12, 16, 17},
 	}
 
-	scheduler.AddToCalendar(&dm)
-	scheduler.AddToCalendar(&j)
-	scheduler.AddToCalendar(&k)
+	workers := []workers.Worker{dm, j, k}
+
+	scheduler.AddToCalendar(&workers)
 
 	fmt.Println(scheduler.DaySchedule.Day)
 }
