@@ -8,11 +8,12 @@ type Scheduler interface {
 }
 
 type Worker struct {
-	Name         string `json:"name"`
-	StartingSlot int    `json:"StartingSlot"`
-	CurrentSlot  int    `json:"CurrentSlot"`
-	GlobalSlot   int    `json:"GlobalSlot"`
-	DaysOff      []int  `json:"DaysOff"`
+	Name         string        `json:"name"`
+	StartingSlot int           `json:"StartingSlot"`
+	CurrentSlot  int           `json:"CurrentSlot"`
+	GlobalSlot   int           `json:"GlobalSlot"`
+	WorkDays     []interface{} `json:"WorkDays"`
+	DaysOff      []int         `json:"DaysOff"`
 }
 
 type NextSlotValue struct {
